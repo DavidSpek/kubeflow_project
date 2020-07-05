@@ -50,11 +50,11 @@ USER $NB_UID
 
 # R packages including IRKernel which gets installed globally.
 
-#RUN conda config --append channels conda-forge
+RUN conda config --append channels bioconda
 #RUN conda config --set channel_priority strict
 
 RUN conda install --quiet --yes \
-    'r-base=4.0.0' \
+    'r-base=4.0.2' \
     'r-caret=6.0*' \
     'r-crayon=1.3*' \
     'r-devtools=2.3*' \
@@ -73,6 +73,12 @@ RUN conda install --quiet --yes \
     'r-shiny=1.5*' \
     'r-tidyverse=1.3*' \
     'r-reticulate=1.16*' \
+    'r-biocmanager=1.30*' \
+    'bioconductor-xcms=3.10*' \
+    'bioconductor-msnbase=2.14*' \
+    'bioconductor-msdata=0.28*' \
+    'r-magrittr=1.5*' \
+    'r-png=0.1*' \
     && \
     conda clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
