@@ -73,12 +73,6 @@ RUN conda install --quiet --yes \
     'r-shiny=1.5*' \
     'r-tidyverse=1.3*' \
     'r-reticulate=1.16*' \
-    'r-biocmanager=1.30*' \
-    'bioconductor-xcms=3.10*' \
-    'bioconductor-msnbase=2.14*' \
-    'bioconductor-msdata=0.28*' \
-    'r-magrittr=1.5*' \
-    'r-png=0.1*' \
     && \
     conda clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
