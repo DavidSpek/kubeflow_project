@@ -50,7 +50,7 @@ USER $NB_UID
 
 # R packages including IRKernel which gets installed globally.
 
-RUN conda config --append channels bioconda
+#RUN conda config --append channels bioconda
 #RUN conda config --set channel_priority strict
 
 RUN conda install --quiet --yes \
