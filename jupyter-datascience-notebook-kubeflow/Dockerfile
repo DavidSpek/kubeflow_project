@@ -19,7 +19,10 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     fonts-dejavu \
     gfortran \
-    gcc && \
+    gcc \
+    libnetcdf-dev \
+    udunits-bin \
+    libudunits2-dev && \
     rm -rf /var/lib/apt/lists/*
 
 # Julia dependencies
