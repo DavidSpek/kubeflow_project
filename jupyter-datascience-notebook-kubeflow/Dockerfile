@@ -23,8 +23,7 @@ RUN apt-get update && \
     libnetcdf-* \
     udunits-bin \
     libudunits2-dev \
-    netcdf-bin \
-    r-cran-ncdf4 && \
+    netcdf-bin && \
     rm -rf /var/lib/apt/lists/*
 
 # Julia dependencies
@@ -55,7 +54,7 @@ USER $NB_UID
 
 # R packages including IRKernel which gets installed globally.
 
-#RUN conda config --append channels bioconda
+RUN conda config --system --append channels bioconda
 #RUN conda config --set channel_priority strict
 
 RUN conda install --quiet --yes \
@@ -79,6 +78,12 @@ RUN conda install --quiet --yes \
     'r-tidyverse=1.3*' \
     'r-reticulate=1.16*' \
     'r-ncdf4=1.17*' \
+    'r-biocmanager=1.30.10' \
+    'bioconductor-xcms=3.10.0' \
+    'bioconductor-msnbase=2.14.1' \
+    'bioconductor-msdata=0.28.0*' \
+    'r-magrittr=1.5*' \
+    'r-png=0.1.7' \
     && \
     conda clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
