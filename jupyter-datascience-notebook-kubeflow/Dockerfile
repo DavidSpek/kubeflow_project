@@ -22,7 +22,8 @@ RUN apt-get update && \
     gcc \
     libnetcdf-dev \
     udunits-bin \
-    libudunits2-dev && \
+    libudunits2-dev \
+    netcdf-bin && \
     rm -rf /var/lib/apt/lists/*
 
 # Julia dependencies
