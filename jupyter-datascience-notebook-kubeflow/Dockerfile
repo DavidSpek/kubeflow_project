@@ -78,6 +78,7 @@ RUN conda install --quiet --yes \
     'r-shiny=1.5*' \
     'r-tidyverse=1.3*' \
     'r-reticulate=1.16*' \
+    'r-ncdf4=1.17*' \
     && \
     conda clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
