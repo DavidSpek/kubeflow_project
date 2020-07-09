@@ -20,7 +20,7 @@ RUN apt-get update && \
     fonts-dejavu \
     gfortran \
     gcc \
-    libnetcdf-dev \
+    libnetcdf-* \
     udunits-bin \
     libudunits2-dev \
     netcdf-bin && \
