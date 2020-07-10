@@ -52,6 +52,27 @@ RUN mkdir /etc/julia && \
 
 USER $NB_UID
 
+ARG conda_env=python37
+ARG py_ver=3.7
+
+RUN conda create --quiet --yes -p $CONDA_DIR/envs/$conda_env python=$py_ver ipython ipykernel && \
+    conda clean --all -f -y
+
+RUN $CONDA_DIR/envs/${conda_env}/bin/python -m ipykernel install --user --name=${conda_env} && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
+ENV PATH $CONDA_DIR/envs/${conda_env}/bin:$PATH
+
+ENV CONDA_DEFAULT_ENV ${conda_env}
+
+# Install latest KFP SDK & Kale & JupyterLab Extension
+RUN pip3 install --upgrade pip && \
+    #pip3 install https://storage.googleapis.com/ml-pipeline/release/latest/kfp.tar.gz --upgrade && \
+    pip3 install -U kubeflow-kale  
+    #jupyter labextension install kubeflow-kale-labextension
+
+
 # R packages including IRKernel which gets installed globally.
 
 RUN conda config --system --append channels bioconda
