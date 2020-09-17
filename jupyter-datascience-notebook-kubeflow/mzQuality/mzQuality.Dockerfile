@@ -85,7 +85,6 @@ RUN mamba install --quiet --yes \
     'r-tidyverse=1.3*' \
     'unixodbc=2.3.*' \
     'r-tidymodels=0.1*' \
-    'rpy2=3.1*' \
     'r-optparse' \
     'r-ggpubr' \
     'r-ggfortify' \
