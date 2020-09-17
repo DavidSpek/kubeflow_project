@@ -30,14 +30,14 @@ RUN apt-get update && \
 # install Julia packages in /opt/julia instead of $HOME
 ENV JULIA_DEPOT_PATH=/opt/julia
 ENV JULIA_PKGDIR=/opt/julia
-ENV JULIA_VERSION=1.4.1
+ENV JULIA_VERSION=1.5.0
 
 WORKDIR /tmp
 
 # hadolint ignore=SC2046
 RUN mkdir "/opt/julia-${JULIA_VERSION}" && \
     wget -q https://julialang-s3.julialang.org/bin/linux/x64/$(echo "${JULIA_VERSION}" | cut -d. -f 1,2)"/julia-${JULIA_VERSION}-linux-x86_64.tar.gz" && \
-    echo "fd6d8cadaed678174c3caefb92207a3b0e8da9f926af6703fb4d1e4e4f50610a *julia-${JULIA_VERSION}-linux-x86_64.tar.gz" | sha256sum -c - && \
+    echo "be7af676f8474afce098861275d28a0eb8a4ece3f83a11027e3554dcdecddb91 *julia-${JULIA_VERSION}-linux-x86_64.tar.gz" | sha256sum -c - && \
     tar xzf "julia-${JULIA_VERSION}-linux-x86_64.tar.gz" -C "/opt/julia-${JULIA_VERSION}" --strip-components=1 && \
     rm "/tmp/julia-${JULIA_VERSION}-linux-x86_64.tar.gz"
 RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
@@ -65,6 +65,27 @@ RUN conda install --quiet --yes \
     fix-permissions "/home/${NB_USER}"
 
 RUN mamba install --quiet --yes \
+    'r-base=4.0.2' \
+    'r-caret=6.0*' \
+    'r-crayon=1.3*' \
+    'r-devtools=2.3*' \
+    'r-forecast=8.12*' \
+    'r-hexbin=1.28*' \
+    'r-htmltools=0.5*' \
+    'r-htmlwidgets=1.5*' \
+    'r-irkernel=1.1*' \
+    'r-nycflights13=1.0*' \
+    'r-plyr=1.8*' \
+    'r-randomforest=4.6*' \
+    'r-rcurl=1.98*' \
+    'r-reshape2=1.4*' \
+    'r-rmarkdown=2.3*' \
+    'r-rsqlite=2.2*' \
+    'r-shiny=1.5*' \
+    'r-tidyverse=1.3*' \
+    'unixodbc=2.3.*' \
+    'r-tidymodels=0.1*' \
+    'rpy2=3.1*' \
     'r-optparse' \
     'r-ggpubr' \
     'r-ggfortify' \
