@@ -89,7 +89,7 @@ RUN mamba install --quiet --yes \
     'r-usethis' \
     'r-readxl' \
     && \
-    mamba update --quet --yes \
+    mamba update --quiet --yes \
     'r-caret' \
     && \
     mamba clean --all -f -y && \
