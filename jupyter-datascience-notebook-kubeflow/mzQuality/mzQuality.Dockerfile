@@ -52,13 +52,6 @@ RUN mkdir /etc/julia && \
 
 USER $NB_UID
 
-# Install latest KFP SDK & Kale & JupyterLab Extension
-RUN pip3 install --upgrade pip && \
-    pip3 install https://storage.googleapis.com/ml-pipeline/release/latest/kfp.tar.gz --upgrade && \
-    git clone https://github.com/DavidSpek/kale  &&\
-    pip3 install kale/backend/ &&\
-    jupyter labextension install kubeflow-kale-labextension
-
 # R packages including IRKernel which gets installed globally.
 
 RUN conda config --system --append channels bioconda
@@ -120,6 +113,15 @@ RUN mamba install --quiet --yes \
     'r-caret' \
     && \
     mamba clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+
+# Install latest KFP SDK & Kale & JupyterLab Extension
+RUN pip3 install --upgrade pip && \
+    pip3 install https://storage.googleapis.com/ml-pipeline/release/latest/kfp.tar.gz --upgrade && \
+    git clone https://github.com/DavidSpek/kale  &&\
+    pip3 install kale/backend/ &&\
+    jupyter labextension install kubeflow-kale-labextension && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
