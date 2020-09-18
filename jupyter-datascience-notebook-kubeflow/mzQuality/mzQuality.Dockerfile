@@ -52,6 +52,13 @@ RUN mkdir /etc/julia && \
 
 USER $NB_UID
 
+# Install latest KFP SDK & Kale & JupyterLab Extension
+RUN pip3 install --upgrade pip && \
+    pip3 install https://storage.googleapis.com/ml-pipeline/release/latest/kfp.tar.gz --upgrade && \
+    git clone https://github.com/DavidSpek/kale  &&\
+    pip3 install /kalebackend/ &&\
+    jupyter labextension install kubeflow-kale-labextension
+
 # R packages including IRKernel which gets installed globally.
 
 RUN conda config --system --append channels bioconda
