@@ -116,15 +116,6 @@ RUN mamba install --quiet --yes \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
-# Install latest KFP SDK & Kale & JupyterLab Extension
-RUN pip3 install --upgrade pip && \
-    pip3 install https://storage.googleapis.com/ml-pipeline/release/latest/kfp.tar.gz --upgrade && \
-    git clone https://github.com/DavidSpek/kale  &&\
-    pip3 install kale/backend/ &&\
-    jupyter labextension install kubeflow-kale-labextension && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
-
 # Add Julia packages. Only add HDF5 if this is not a test-only build since
 # it takes roughly half the entire build time of all of the images on Travis
 # to add this one package and often causes Travis to timeout.
@@ -140,6 +131,15 @@ RUN julia -e 'import Pkg; Pkg.update()' && \
     chmod -R go+rx "${CONDA_DIR}/share/jupyter" && \
     rm -rf "${HOME}/.local" && \
     fix-permissions "${JULIA_PKGDIR}" "${CONDA_DIR}/share/jupyter"
+
+# Install latest KFP SDK & Kale & JupyterLab Extension
+RUN pip3 install --upgrade pip && \
+    pip3 install https://storage.googleapis.com/ml-pipeline/release/latest/kfp.tar.gz --upgrade && \
+    git clone --branch multi-user-kfp https://github.com/DavidSpek/kale  &&\
+    pip3 install kale/backend/ &&\
+    jupyter labextension install kubeflow-kale-labextension && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
 
 WORKDIR $HOME
 
